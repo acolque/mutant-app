@@ -24,7 +24,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		VersionApp string
 	}{
 		"Hola mundo! yo soy " + nombre,
-		"Y esta es mi 1ra app en GO",
+		"Y esta es mi 1ra app en GO con DOCKER",
 		"v1.0",
 	}
 
