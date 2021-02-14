@@ -1,4 +1,4 @@
-module github.com/mutant-app/api
+module github.com/mutant-app
 
 go 1.15
 

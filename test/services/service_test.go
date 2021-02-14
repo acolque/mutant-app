@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	"github.com/mutant-app/api/services"
+	"github.com/mutant-app/services"
 
 	"github.com/stretchr/testify/assert"
 )

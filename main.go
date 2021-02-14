@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
-	"github.com/mutant-app/api/handlers"
+	"github.com/mutant-app/handlers"
 )
 
 func main() {

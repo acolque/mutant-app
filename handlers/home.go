@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/mutant-app/api/services"
+	"github.com/mutant-app/services"
 )
 
 type UrlDel struct {
