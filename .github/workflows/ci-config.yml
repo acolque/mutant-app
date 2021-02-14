@@ -11,10 +11,7 @@ jobs:
   build:
     name: ci-mutant-app
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./api
-        
+            
     steps:
 
     - name: Set up Go 1.x
