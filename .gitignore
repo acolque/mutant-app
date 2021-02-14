@@ -16,3 +16,4 @@
 
 debug.log
 test/__debug_bin
+.vscode/launch.json

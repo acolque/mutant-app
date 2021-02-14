@@ -13,6 +13,7 @@ func main() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/", handlers.Home).Methods("GET")
+	r.HandleFunc("/mutant", handlers.Mutant).Methods("GET")
 
 	port := os.Getenv("PORT")
 	if port == "" {
