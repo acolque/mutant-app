@@ -25,7 +25,7 @@ func Mutant(w http.ResponseWriter, r *http.Request) {
 	v := new(services.DnaValidator)
 	result := v.ValidateDna(dna)
 	if !result {
-		respondWithJSON(w, http.StatusForbidden, "dna invalido")
+		respondWithJSON(w, http.StatusBadRequest, "dna invalido")
 		return
 	}
 
