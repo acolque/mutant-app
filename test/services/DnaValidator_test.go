@@ -28,6 +28,13 @@ func TestValidateCharsSuccess(t *testing.T) {
 	assert.True(t, result, "fallo test TestValidateCharsSuccess")
 }
 
+func TestValidateCharsUppercaseSuccess(t *testing.T) {
+	dna := []string{"ATGCGA", "cagtgc", "TTATGT", "agaagg", "CCCCTA", "TCACTG"}
+	v := new(services.DnaValidator)
+	result := v.ValidateChars(dna)
+	assert.True(t, result, "fallo test TestValidateCharsUppercaseSuccess")
+}
+
 func TestValidateCharsError(t *testing.T) {
 	dna := []string{"ATGCGA", "XXXYYY", "TTATGT", "AGAAGG", "CCCRRR", "TCACTG"}
 	v := new(services.DnaValidator)

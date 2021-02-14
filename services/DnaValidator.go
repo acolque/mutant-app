@@ -1,5 +1,10 @@
 package services
 
+import (
+	"os"
+	"strings"
+)
+
 type DnaValidator struct {
 	chars []rune
 }
@@ -29,8 +34,13 @@ func (v DnaValidator) ValidateSize(dnaMatrix []string) bool {
 func (v DnaValidator) ValidateChars(dnaMatrix []string) bool {
 	validChars := []rune{'A', 'T', 'C', 'G'}
 
+	chars := os.Getenv("VALID_CHARS")
+	if chars != "" {
+		validChars = []rune(strings.ToUpper(chars))
+	}
+
 	for _, dna := range dnaMatrix {
-		for _, char := range dna {
+		for _, char := range strings.ToUpper(dna) {
 			if !Contains(validChars, char) {
 				return false
 			}
