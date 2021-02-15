@@ -41,7 +41,7 @@ func (v DnaValidator) ValidateChars(dnaMatrix []string) bool {
 
 	for _, dna := range dnaMatrix {
 		for _, char := range strings.ToUpper(dna) {
-			if !Contains(validChars, char) {
+			if !contains(validChars, char) {
 				return false
 			}
 		}
@@ -50,7 +50,7 @@ func (v DnaValidator) ValidateChars(dnaMatrix []string) bool {
 	return true
 }
 
-func Contains(list []rune, value rune) bool {
+func contains(list []rune, value rune) bool {
 	for _, char := range list {
 		if char == value {
 			return true

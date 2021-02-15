@@ -5,29 +5,42 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/mutant-app/business"
 	"github.com/mutant-app/services"
 )
+
+type DnaRequest struct {
+	Dna []string
+}
 
 func Mutant(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		respondWithJSON(w, http.StatusBadRequest, "no se puede leer el request")
+		respondWithJSON(w, http.StatusBadRequest, "No se puede leer el request")
 		return
 	}
 
-	var dna []string
-	err2 := json.Unmarshal(reqBody, &dna)
+	var request DnaRequest
+	err2 := json.Unmarshal(reqBody, &request)
 	if err2 != nil {
-		respondWithJSON(w, http.StatusBadRequest, "parametro invalido")
+		respondWithJSON(w, http.StatusBadRequest, "Parametro invalido")
 		return
 	}
 
-	v := new(services.DnaValidator)
-	result := v.ValidateDna(dna)
+	dna := request.Dna
+	validator := new(services.DnaValidator)
+	result := validator.ValidateDna(dna)
 	if !result {
-		respondWithJSON(w, http.StatusBadRequest, "dna invalido")
+		respondWithJSON(w, http.StatusBadRequest, "DNA invalido")
 		return
 	}
 
-	respondWithJSON(w, http.StatusOK, "app en construccion")
+	detector := new(services.DnaMutantDetector)
+	myBusiness := business.NewMutantBusiness(detector)
+	isMutant := myBusiness.IsMutant(dna)
+	if isMutant {
+		respondWithJSON(w, http.StatusOK, "Es mutante")
+	} else {
+		respondWithJSON(w, http.StatusForbidden, "No es mutante")
+	}
 }
