@@ -14,15 +14,23 @@ func NewMutantBusiness(detector services.IDetector, dataBase services.IMutantDb)
 	return b
 }
 
-func (m MutantBusiness) IsMutant(dna []string) bool {
-	result, _ := m.myDetector.IsMutant(dna)
+func (m MutantBusiness) IsMutant(dna []string) (result bool, msg string) {
+	result, err := m.myDetector.IsMutant(dna)
+	if err != nil {
+		msg = "warn: Ocurrio un error en la validacion"
+		return
+	}
 
 	edna := services.EDna{Dna: dna, IsMutant: result}
-
-	_, err := m.myDb.Find(edna)
+	find, err := m.myDb.Find(edna)
 	if err != nil {
+		msg = "warn: Sin conex a Db. No se pudo guardar para estadistica"
+		return
+	}
+
+	if find.Dna == nil {
 		m.myDb.Add(edna)
 	}
 
-	return result
+	return
 }

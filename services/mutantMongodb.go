@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"log"
 	"os"
 	"time"
 
@@ -29,7 +28,7 @@ func (m *MutantMongodb) Find(dna EDna) (EDna, error) {
 	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
-		log.Fatal(err)
+		return EDna{}, err
 	}
 	defer client.Disconnect(ctx)
 
@@ -45,7 +44,7 @@ func (m *MutantMongodb) Add(dna EDna) error {
 	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer client.Disconnect(ctx)
 
@@ -64,7 +63,7 @@ func (m *MutantMongodb) Delete(dna EDna) error {
 	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer client.Disconnect(ctx)
 
@@ -80,7 +79,7 @@ func (m *MutantMongodb) GetAll() ([]EDna, error) {
 	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
-		log.Fatal(err)
+		return []EDna{}, err
 	}
 	defer client.Disconnect(ctx)
 

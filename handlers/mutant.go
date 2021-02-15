@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -39,10 +40,10 @@ func Mutant(w http.ResponseWriter, r *http.Request) {
 	// db := new(services.MutantMockDb)
 	db := services.NewMutantMongodb()
 	myBusiness := business.NewMutantBusiness(detector, db)
-	isMutant := myBusiness.IsMutant(dna)
+	isMutant, msg := myBusiness.IsMutant(dna)
 	if isMutant {
-		respondWithJSON(w, http.StatusOK, "Es mutante")
+		respondWithJSON(w, http.StatusOK, fmt.Sprintf("Es mutante. %s", msg))
 	} else {
-		respondWithJSON(w, http.StatusForbidden, "No es mutante")
+		respondWithJSON(w, http.StatusForbidden, fmt.Sprintf("No es mutante. %s", msg))
 	}
 }
