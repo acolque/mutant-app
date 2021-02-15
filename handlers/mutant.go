@@ -9,6 +9,10 @@ import (
 	"github.com/mutant-app/services"
 )
 
+type DnaRequest struct {
+	Dna []string
+}
+
 func Mutant(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -16,15 +20,16 @@ func Mutant(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var dna []string
-	err2 := json.Unmarshal(reqBody, &dna)
+	var request DnaRequest
+	err2 := json.Unmarshal(reqBody, &request)
 	if err2 != nil {
 		respondWithJSON(w, http.StatusBadRequest, "Parametro invalido")
 		return
 	}
 
-	v := new(services.DnaValidator)
-	result := v.ValidateDna(dna)
+	dna := request.Dna
+	validator := new(services.DnaValidator)
+	result := validator.ValidateDna(dna)
 	if !result {
 		respondWithJSON(w, http.StatusBadRequest, "DNA invalido")
 		return
