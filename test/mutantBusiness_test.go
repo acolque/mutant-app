@@ -10,7 +10,8 @@ import (
 
 func TestValidateBusinessIsMutantSucess(t *testing.T) {
 	detector := new(services.DnaMutantDetector)
-	myBusiness := business.NewMutantBusiness(detector)
+	db := new(services.MutantMockDb)
+	myBusiness := business.NewMutantBusiness(detector, db)
 	dna := []string{"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"}
 
 	result := myBusiness.IsMutant(dna)
@@ -20,7 +21,8 @@ func TestValidateBusinessIsMutantSucess(t *testing.T) {
 
 func TestValidateBusinessIsMutantError(t *testing.T) {
 	detector := new(services.DnaMutantDetector)
-	myBusiness := business.NewMutantBusiness(detector)
+	db := new(services.MutantMockDb)
+	myBusiness := business.NewMutantBusiness(detector, db)
 	dna := []string{"ATGCGA", "CAGTGC", "TTATGT", "AGAATG", "ACCCTA", "TCACTG"}
 
 	result := myBusiness.IsMutant(dna)

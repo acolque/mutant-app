@@ -36,7 +36,8 @@ func Mutant(w http.ResponseWriter, r *http.Request) {
 	}
 
 	detector := new(services.DnaMutantDetector)
-	myBusiness := business.NewMutantBusiness(detector)
+	db := new(services.MutantMockDb)
+	myBusiness := business.NewMutantBusiness(detector, db)
 	isMutant := myBusiness.IsMutant(dna)
 	if isMutant {
 		respondWithJSON(w, http.StatusOK, "Es mutante")
