@@ -23,7 +23,7 @@ func (m MutantBusiness) IsMutant(dna []string) (result bool, msg string) {
 
 	edna := services.EDna{Dna: dna, IsMutant: result}
 	find, err := m.myDb.Find(edna)
-	if err != nil {
+	if _, ok := err.(*services.ConexError); ok {
 		msg = "warn: Sin conex a Db. No se pudo guardar para estadistica"
 		return
 	}

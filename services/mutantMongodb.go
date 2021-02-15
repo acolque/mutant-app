@@ -28,7 +28,7 @@ func (m *MutantMongodb) Find(dna EDna) (EDna, error) {
 	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
-		return EDna{}, err
+		return EDna{}, &ConexError{}
 	}
 	defer client.Disconnect(ctx)
 
@@ -44,7 +44,7 @@ func (m *MutantMongodb) Add(dna EDna) error {
 	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
-		return err
+		return &ConexError{}
 	}
 	defer client.Disconnect(ctx)
 
@@ -63,7 +63,7 @@ func (m *MutantMongodb) Delete(dna EDna) error {
 	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
-		return err
+		return &ConexError{}
 	}
 	defer client.Disconnect(ctx)
 
@@ -79,7 +79,7 @@ func (m *MutantMongodb) GetAll() ([]EDna, error) {
 	ctx, _ := context.WithTimeout(context.Background(), 60*time.Second)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(m.stringConn))
 	if err != nil {
-		return []EDna{}, err
+		return []EDna{}, &ConexError{}
 	}
 	defer client.Disconnect(ctx)
 
@@ -103,4 +103,11 @@ func (m *MutantMongodb) GetAll() ([]EDna, error) {
 	}
 
 	return results, err
+}
+
+type ConexError struct {
+}
+
+func (e *ConexError) Error() string {
+	return "Error de conexion a Mongodb"
 }
