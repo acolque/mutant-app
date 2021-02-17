@@ -14,6 +14,7 @@ func main() {
 
 	r.HandleFunc("/", handlers.Home).Methods("GET")
 	r.HandleFunc("/mutant", handlers.Mutant).Methods("POST")
+	r.HandleFunc("/stats", handlers.Stats).Methods("GET")
 
 	port := os.Getenv("PORT")
 	if port == "" {
