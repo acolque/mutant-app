@@ -9,7 +9,7 @@ import (
 
 func TestValidateDnaMutantSuccess(t *testing.T) {
 	dna := []string{"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"}
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	result, _ := m.IsMutant(dna)
 
@@ -18,7 +18,7 @@ func TestValidateDnaMutantSuccess(t *testing.T) {
 
 func TestValidateDnaMutantLowerCaseSuccess(t *testing.T) {
 	dna := []string{"aTGCGa", "CAgTGc", "TTATGT", "AGaagG", "CCCCTA", "TCAcTg"}
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	result, _ := m.IsMutant(dna)
 
@@ -27,7 +27,7 @@ func TestValidateDnaMutantLowerCaseSuccess(t *testing.T) {
 
 func TestValidateDnaMutantHorizontalSuccess(t *testing.T) {
 	dna := []string{"TTTTGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"}
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	result, _ := m.IsMutant(dna)
 
@@ -36,7 +36,7 @@ func TestValidateDnaMutantHorizontalSuccess(t *testing.T) {
 
 func TestValidateDnaMutantVerticalSuccess(t *testing.T) {
 	dna := []string{"ATGCGT", "AAGTGT", "ATATGT", "AGAAGT", "CTCCTA", "TCACTG"}
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	result, _ := m.IsMutant(dna)
 
@@ -45,7 +45,7 @@ func TestValidateDnaMutantVerticalSuccess(t *testing.T) {
 
 func TestValidateDnaMutantDescDiagonalSuccess(t *testing.T) {
 	dna := []string{"ATGCGA", "CAGTGC", "TCATTT", "AGCGGG", "GCGCGA", "TCAAAA"}
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	result, _ := m.IsMutant(dna)
 
@@ -54,7 +54,7 @@ func TestValidateDnaMutantDescDiagonalSuccess(t *testing.T) {
 
 func TestValidateDnaMutantAscDiagonalSuccess(t *testing.T) {
 	dna := []string{"ATGCGC", "CAGTCA", "TTACTT", "AGCCGG", "GCGTCA", "TCAAAA"}
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	result, _ := m.IsMutant(dna)
 
@@ -63,7 +63,7 @@ func TestValidateDnaMutantAscDiagonalSuccess(t *testing.T) {
 
 func TestValidateDnaMutantError(t *testing.T) {
 	dna := []string{"ATGCGA", "CAGTGC", "TTATGT", "AGAATG", "TCCCTA", "TCACTG"}
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	result, _ := m.IsMutant(dna)
 
@@ -72,7 +72,7 @@ func TestValidateDnaMutantError(t *testing.T) {
 
 func TestValidateDnaMutantLargeMatrixSuccess(t *testing.T) {
 	dna := getLargeMatrix()
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	result, _ := m.IsMutant(dna)
 
@@ -81,7 +81,7 @@ func TestValidateDnaMutantLargeMatrixSuccess(t *testing.T) {
 
 func TestValidateDnaMutantNotException(t *testing.T) {
 	dna := []string{"A", "CAGTGC", "TTATGT", "AGAATG", "TC", "TCACTG"}
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	_, err := m.IsMutant(dna)
 

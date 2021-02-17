@@ -1,10 +1,35 @@
 package services
 
 import (
+	"os"
+	"strconv"
 	"strings"
 )
 
 type DnaMutantDetector struct {
+	Sequences    []string
+	MinSequences int
+}
+
+func NewDnaMutantDetector() *DnaMutantDetector {
+	d := new(DnaMutantDetector)
+	d.Sequences = []string{"AAAA", "TTTT", "CCCC", "GGGG"}
+	d.MinSequences = 2
+
+	sequences := os.Getenv("SEQUENCES")
+	if sequences != "" {
+		d.Sequences = strings.Split(sequences, ",")
+	}
+
+	minSeq := os.Getenv("MIN_SEQUENCES")
+	if minSeq != "" {
+		value, err := strconv.Atoi(minSeq)
+		if err == nil {
+			d.MinSequences = value
+		}
+	}
+
+	return d
 }
 
 func (d DnaMutantDetector) IsMutant(dna []string) (result bool, err error) {
@@ -13,11 +38,8 @@ func (d DnaMutantDetector) IsMutant(dna []string) (result bool, err error) {
 
 	matrix := convertToMatrix(dna)
 
-	wordsToFind := []string{"AAAA", "TTTT", "CCCC", "GGGG"}
-	minWordsToFind := 2
-
 	mapWords := make(map[rune]string)
-	for _, word := range wordsToFind {
+	for _, word := range d.Sequences {
 		mapWords[rune(word[0])] = word
 	}
 
@@ -34,12 +56,12 @@ func (d DnaMutantDetector) IsMutant(dna []string) (result bool, err error) {
 					findTo(wordToFind, i, j, 1, -1, matrix) ||
 					findTo(wordToFind, i, j, 0, 1, matrix) {
 					delete(mapWords, key)
-					minWordsToFind--
+					d.MinSequences--
 					break
 				}
 			}
 
-			if minWordsToFind == 0 {
+			if d.MinSequences == 0 {
 				result = true
 				return
 			}

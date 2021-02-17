@@ -19,7 +19,7 @@ func TestValidateBusinessGetStats(t *testing.T) {
 
 func TestValidateBusinessGetStatsWithOneMutantsTwoHuman(t *testing.T) {
 	db := new(services.MutantMockDb)
-	detector := new(services.DnaMutantDetector)
+	detector := services.NewDnaMutantDetector()
 	mutantBusiness := business.NewMutantBusiness(detector, db)
 	myBusiness := business.NewStatsBusiness(db)
 	mutant1 := []string{"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"}
