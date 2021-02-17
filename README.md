@@ -58,3 +58,11 @@ La api puede ser configurada seteando algunas variables de entorno:
 * Enfoque TDD
 * Delivery Continuo mendiante Heroku con dos instacias QA y PR
 * Se dispone de un deploy extra por pull request para realizar testing cruzado
+
+## Diagrama de clase
+
+![image info](./mutant-app-class.jpg)
+
+## Diagrama de secuencia
+
+![image info](./mutant-app-sec.jpg)
