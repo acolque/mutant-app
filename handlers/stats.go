@@ -2,19 +2,19 @@ package handlers
 
 import (
 	"net/http"
+
+	"github.com/mutant-app/business"
+	"github.com/mutant-app/services"
 )
 
-type StatResult struct {
-	Count_mutant_dna int
-	Count_human_dna  int
-	Ratio            float32
-}
-
 func Stats(w http.ResponseWriter, r *http.Request) {
-	result := StatResult{
-		Count_mutant_dna: 40,
-		Count_human_dna:  100,
-		Ratio:            0.4,
+	db := services.NewMutantMongodb()
+	myBusiness := business.NewStatsBusiness(db)
+
+	result, err := myBusiness.GetStats()
+	if err != nil {
+		respondWithJSON(w, http.StatusServiceUnavailable, "Hubo un error al obtener las estadisticas")
+		return
 	}
 
 	respondWithJSON(w, http.StatusOK, result)
