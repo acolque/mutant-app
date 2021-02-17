@@ -9,7 +9,7 @@ import (
 )
 
 func TestValidateBusinessIsMutantSucess(t *testing.T) {
-	detector := new(services.DnaMutantDetector)
+	detector := services.NewDnaMutantDetector()
 	db := new(services.MutantMockDb)
 	myBusiness := business.NewMutantBusiness(detector, db)
 	dna := []string{"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"}
@@ -20,7 +20,7 @@ func TestValidateBusinessIsMutantSucess(t *testing.T) {
 }
 
 func TestValidateBusinessIsMutantError(t *testing.T) {
-	detector := new(services.DnaMutantDetector)
+	detector := services.NewDnaMutantDetector()
 	db := new(services.MutantMockDb)
 	myBusiness := business.NewMutantBusiness(detector, db)
 	dna := []string{"ATGCGA", "CAGTGC", "TTATGT", "AGAATG", "ACCCTA", "TCACTG"}
@@ -31,8 +31,8 @@ func TestValidateBusinessIsMutantError(t *testing.T) {
 }
 
 func TestValidateBusinessIsMutantSuccessWithDBError(t *testing.T) {
-	detector := new(services.DnaMutantDetector)
-	db := services.NewMutantMongodb()
+	detector := services.NewDnaMutantDetector()
+	db := new(services.MutantMongodb)
 	myBusiness := business.NewMutantBusiness(detector, db)
 	dna := []string{"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"}
 

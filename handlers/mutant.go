@@ -36,7 +36,7 @@ func Mutant(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	detector := new(services.DnaMutantDetector)
+	detector := services.NewDnaMutantDetector()
 	// db := new(services.MutantMockDb)
 	db := services.NewMutantMongodb()
 	myBusiness := business.NewMutantBusiness(detector, db)

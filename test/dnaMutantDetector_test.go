@@ -9,34 +9,79 @@ import (
 
 func TestValidateDnaMutantSuccess(t *testing.T) {
 	dna := []string{"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"}
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	result, _ := m.IsMutant(dna)
 
 	assert.True(t, result, "fallo test TestValidateDnaMutantSuccess")
+}
+
+func TestValidateDnaMutantLowerCaseSuccess(t *testing.T) {
+	dna := []string{"aTGCGa", "CAgTGc", "TTATGT", "AGaagG", "CCCCTA", "TCAcTg"}
+	m := services.NewDnaMutantDetector()
+
+	result, _ := m.IsMutant(dna)
+
+	assert.True(t, result, "fallo test TestValidateDnaMutantLowerCaseSuccess")
+}
+
+func TestValidateDnaMutantHorizontalSuccess(t *testing.T) {
+	dna := []string{"TTTTGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"}
+	m := services.NewDnaMutantDetector()
+
+	result, _ := m.IsMutant(dna)
+
+	assert.True(t, result, "fallo test TestValidateDnaMutantHorizontalSuccess")
+}
+
+func TestValidateDnaMutantVerticalSuccess(t *testing.T) {
+	dna := []string{"ATGCGT", "AAGTGT", "ATATGT", "AGAAGT", "CTCCTA", "TCACTG"}
+	m := services.NewDnaMutantDetector()
+
+	result, _ := m.IsMutant(dna)
+
+	assert.True(t, result, "fallo test TestValidateDnaMutantVerticalSuccess")
+}
+
+func TestValidateDnaMutantDescDiagonalSuccess(t *testing.T) {
+	dna := []string{"ATGCGA", "CAGTGC", "TCATTT", "AGCGGG", "GCGCGA", "TCAAAA"}
+	m := services.NewDnaMutantDetector()
+
+	result, _ := m.IsMutant(dna)
+
+	assert.True(t, result, "fallo test TestValidateDnaMutantDescDiagonalSuccess")
+}
+
+func TestValidateDnaMutantAscDiagonalSuccess(t *testing.T) {
+	dna := []string{"ATGCGC", "CAGTCA", "TTACTT", "AGCCGG", "GCGTCA", "TCAAAA"}
+	m := services.NewDnaMutantDetector()
+
+	result, _ := m.IsMutant(dna)
+
+	assert.True(t, result, "fallo test TestValidateDnaMutantAscDiagonalSuccess")
 }
 
 func TestValidateDnaMutantError(t *testing.T) {
 	dna := []string{"ATGCGA", "CAGTGC", "TTATGT", "AGAATG", "TCCCTA", "TCACTG"}
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	result, _ := m.IsMutant(dna)
 
-	assert.False(t, result, "fallo test TestValidateDnaMutantSuccess")
+	assert.False(t, result, "fallo test TestValidateDnaMutantError")
 }
 
 func TestValidateDnaMutantLargeMatrixSuccess(t *testing.T) {
 	dna := getLargeMatrix()
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	result, _ := m.IsMutant(dna)
 
-	assert.True(t, result, "fallo test TestValidateDnaMutantSuccess")
+	assert.True(t, result, "fallo test TestValidateDnaMutantLargeMatrixSuccess")
 }
 
 func TestValidateDnaMutantNotException(t *testing.T) {
 	dna := []string{"A", "CAGTGC", "TTATGT", "AGAATG", "TC", "TCACTG"}
-	m := new(services.DnaMutantDetector)
+	m := services.NewDnaMutantDetector()
 
 	_, err := m.IsMutant(dna)
 
