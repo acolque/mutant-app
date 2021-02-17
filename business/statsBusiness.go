@@ -34,7 +34,9 @@ func (s StatsBusiness) GetStats() (StatResult, error) {
 		}
 	}
 
-	ratio = float64(countMutant) / float64(countHuman)
+	if countHuman != 0 {
+		ratio = float64(countMutant) / float64(countHuman)
+	}
 
 	result := StatResult{
 		Count_mutant_dna: countMutant,
