@@ -32,7 +32,7 @@ func TestValidateBusinessIsMutantError(t *testing.T) {
 
 func TestValidateBusinessIsMutantSuccessWithDBError(t *testing.T) {
 	detector := new(services.DnaMutantDetector)
-	db := services.NewMutantMongodb()
+	db := new(services.MutantMongodb)
 	myBusiness := business.NewMutantBusiness(detector, db)
 	dna := []string{"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"}
 

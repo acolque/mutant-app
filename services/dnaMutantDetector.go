@@ -31,6 +31,7 @@ func (d DnaMutantDetector) IsMutant(dna []string) (result bool, err error) {
 			for key, wordToFind := range mapWords {
 				if findTo(wordToFind, i, j, 1, 0, matrix) ||
 					findTo(wordToFind, i, j, 1, 1, matrix) ||
+					findTo(wordToFind, i, j, 1, -1, matrix) ||
 					findTo(wordToFind, i, j, 0, 1, matrix) {
 					delete(mapWords, key)
 					minWordsToFind--
@@ -52,7 +53,7 @@ func (d DnaMutantDetector) IsMutant(dna []string) (result bool, err error) {
 func convertToMatrix(arr []string) [][]rune {
 	var matrix [][]rune
 	for _, row := range arr {
-		matrix = append(matrix, []rune(row))
+		matrix = append(matrix, []rune(strings.ToUpper(row)))
 	}
 	return matrix
 }
